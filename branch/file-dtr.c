@@ -5,7 +5,7 @@
 #define p printf
 #define s scanf
 //global variable:
-int employee = 17, day = 5, description = 1, ti , to;//para sa employee, day, description counter
+int employee = 1, day = 5, description = 1, ti , to;//para sa employee, day, description counter
 int weeklySalary = 0, total_late = 0; //calculate the work hours, weekly salary, late, kag undertime
 int total_undertime = 0, weekly_salary_unfloat, salary_per_hrs = 100, unfloat_hrs_work;
 float hrs_work = 0, totalWorkhours = 0.0, total_weekly_salary = 0.0, weekly_salary = 0.0, total_work_hours = 0.0;
@@ -431,6 +431,12 @@ int main(){
         timeIn_timeOut();   
         display_total();
         another_employee:
+        //reset ta ang mga value kagina
+        ti = 0, to = 0;
+        weeklySalary = 0, total_late = 0; 
+        total_undertime = 0, weekly_salary_unfloat, salary_per_hrs = 100, unfloat_hrs_work;
+        hrs_work = 0, totalWorkhours = 0.0, total_weekly_salary = 0.0, weekly_salary = 0.0, total_work_hours = 0.0;
+        late = 0, undertime = 0, total_hrs_work = 0, final_hrs_work = 0;
         employee += 1;
         system("cls");
     } while (ans == 'Y' || ans == 'y');
