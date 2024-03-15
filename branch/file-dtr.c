@@ -1,68 +1,44 @@
-//header file or preproccessor directive
-#include <stdio.h>
-#include <conio.h>
-#include <windows.h>
+//e add ko lang diri mga comment each line for better understanding, the rest I docs ko or readme file.
+//kindly read each part and purpose of variables and conditions
 
+//diri nga ang ginatawag nga Header file or preproccessor directive:
+#include <stdio.h>//standard input output
+#include <conio.h>//console input output
+#include <windows.h>//need ni sa for gotoxy and clear screen purposes which is system("cls");
+
+//let's work on a problem that it limits the invalid in the first entered input
 //declared constants
-#define g gotoxy
-#define p printf
-#define s scanf
+#define g gotoxy//everytime mag gamit ta gotoxy 'g' nalng aton gamiton 
+#define p printf//same man diri 'p' nalang gamiton
+#define s scanf//as well as diri 's' man
 
-//global variable:
-int employee = 1, day = 5, description = 1, ti , to;
-int weeklySalary = 0, total_late = 0;
-int total_undertime = 0, salary_per_hrs = 100, unfloat_hrs_work;
+//global variables:
+int weeklySalary = 0, employee = 1, day = 5, description = 1, ti , to;//ti - time in, to - time out
+int  total_undertime = 0, salary_per_hrs = 100, total_late = 0, unfloat_hrs_work;//unfloat hours work gamiton tani sa pag calculate sang hours work sa modulo
+//this is float incase there's a decimal in result, para sure gid
 float hrs_work = 0, totalWorkhours = 0.0, total_weekly_salary = 0.0, weekly_salary = 0.0, total_work_hours = 0.0;
 int late = 0, undertime = 0, total_hrs_work = 0, final_hrs_work = 0;
-
-//variable for convertion
-int total_late_hrs, total_late_min, total_undertime_hrs, total_undertime_min;
-int final_hrs_work_hrs, final_hrs_work_min, final_late_hrs, final_late_min;  
-int undertime_hrs, undertime_min, undertime_in_hrs;
-int ttl_late_min, ttl_undertime_hrs, ttl_undertime_min;
+//variable for conversion of total late && undertime
+int total_late_hrs, total_late_min;
+int total_undertime_hrs, total_undertime_min;
+//varibale for conversion of late && undertime
+int undertime_in_hrs, undertime_in_min;
+int late_in_hrs, late_in_min;
+//variable for conversion of time in time out
 int time_in_hrs, time_in_min, time_out_hrs, time_out_min;
-int ttl_work_hrs, ttl_work_min, ttl_late_hrs;
-int ttl_undertime_min, total_hrs_work_min, total_hrs_work_hrs;
-int final_undertime_hrs, final_undertime_min;
-int late_in_hrs, late_in_min, udertime_in_hrs, undertime_in_min;
-int hrs_work_hrs, hrs_work_min, weekly_salary_hrs, weekly_salary_min;
+//variable for conversion of total hours work
+int total_hrs_work_min, total_hrs_work_hrs;
+//variable for conversion of hours work && weekly salary
+int hrs_work_hrs, hrs_work_min;
+int weekly_salary_hrs, weekly_salary_min;
+//variable for answer
 char ans;
 void gotoxy(int x, int y){
-//since lain ang turbo c, c droid, sa vs code, sa vs need gid mag ubra function with 
-//header file nga "<windows.h>"
+//since lain ang turbo c, c droid, sa vs code, sa vs need gid mag ubra function with header file nga "<windows.h>"
     COORD coord;
     coord.X = x - 1;
     coord.Y = y - 1;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-void delete(){
-    for (int del = 1; del < 6; del ++){
-        g(10, 13 + day);p("  ");
-        g(11, 13 + day);p(":");
-        g(12, 13 + day);p("  ");
-        g(20, 13 + day);p("  ");
-        g(22, 13 + day);p(":");
-        g(23, 13 + day);p("  ");
-        g(31, 13 + day);p("  ");
-        g(32, 13 + day);p(":");
-        g(33, 13 + day);p("  ");
-        g(41, 13 + day);p("  ");
-        g(42, 13 + day);p(":");
-        g(43, 13 + day);p("  ");
-        g(51, 13 + day);p("  ");
-        g(52, 13 + day);p(":");
-        g(53, 13 + day);p(" ");
-    }
-}
-void display_for_late(){
-    g(11, 14);
-    p("0:0");
-    g(21, 14);
-    p("0:0");
-    g(31, 14);
-    p("0:0");
-    g(51, 14);
-    p("0:0");
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);//please memorized kay mawasak aton structure
 }
 void display_total(){
     g(13, 20);p("total:");
@@ -91,20 +67,20 @@ void display_total(){
     g(22, 23);p("%0.2d", total_undertime_min);
     g(23, 21);p("WEEKLY SALARIES: ");
     g(40, 21);p("%5.2f", total_weekly_salary);
-    back:
+    another_employee:
     g(27, 23);p("ANOTHER EMPLOYEE? ");
     g(45, 23);s("%c", &ans);
     if (ans == 'n' || ans == 'n'){
         g(2, 24);p("ARE YOU SURE YOU WANT TO EXIT? (y/n) ");
-        g(25, 24);s("%c", &ans);
+        g(39, 24);s("%s", &ans);
         if (ans == 'Y' || ans == 'y'){
             system("cls");
             exit(0);
-        } else {
-            g(2, 24);p("                                      ");
-            goto back;
         }
     }
+    g(45, 23);p("      ");
+    g(2, 24);p("                                      ");
+    goto another_employee;
 }
 void display_description(){
     g(25, 8);p("EMPLOYEE:");
@@ -125,15 +101,24 @@ void timeIn_timeOut(){
         time_in_again:
         g(2, 5);printf("Time in: \n");
         g(15, 5);printf(":");
-        g(21, 5);printf("\n");
         g(2, 6);printf("Time out:\n");
         g(15, 6);printf(":");
-        g(14, 6);printf("\n");
         g(13, 5);scanf("%d", &time_in_hrs);
+        //a task here!!
+        if (time_in_hrs < 5 || time_in_hrs > 12){//so nag add ko sang condition nga sa time in hour palang gina limit nya na ang invalid
+            g(13, 5);printf("  ");
+            g(2, 7);printf("INVALID INPUT");
+            goto time_in_again;
+        }
         g(16, 5);scanf("%d", &time_in_min);
+        if (time_in_min < 0 || time_in_min > 59){//same here gina limit nya ang invalid sa time in minutes
+            g(13, 5);printf("  ");
+            g(16, 5);printf("  ");
+            g(2, 7);printf("INVALID INPUT");
+            goto time_in_again;
+        }
         g(2, 7);printf("                 ");
         ti = time_in_hrs * 60 + time_in_min;
-
         if (time_in_hrs > 4 && time_in_hrs < 13 && time_in_min > -1 && time_in_min < 60){
             if (ti > 570 && ti < 721){
                 if (day < 6){
@@ -145,9 +130,6 @@ void timeIn_timeOut(){
                     weekly_salary = (hrs_work / 60) * 100;
                     unfloat_hrs_work = hrs_work;
                     total_weekly_salary = total_weekly_salary + weekly_salary;
-                    //convertion
-                    final_hrs_work_hrs = final_hrs_work / 60; 
-                    final_hrs_work_min = final_hrs_work % 60;
                     //convertion
                     total_late_hrs = total_late / 60;
                     total_late_min = total_late % 60;
@@ -178,9 +160,22 @@ void timeIn_timeOut(){
                     }
                     goto time_in_again;
                 } 
-            } 
+            }
+            time_out_again:
             g(13, 6);scanf("%d", &time_out_hrs);
+            //a task here!!
+            if (time_out_hrs < 5 || time_out_hrs > 12){//so nag add ko sang condition nga sa time in hour palang gina limit nya na ang invalid
+                g(13, 5);printf("  ");
+                g(2, 7);printf("INVALID INPUT");
+                goto time_out_again;
+            }
             g(16, 6);scanf("%d", &time_out_min);
+            if (time_in_min < 0 || time_in_min > 59){//same here gina limit nya ang invalid sa time in minutes
+                g(13, 5);printf("  ");
+                g(16, 5);printf("  ");
+                g(2, 7);printf("INVALID INPUT");
+                goto time_out_again;
+            }
             to = time_out_hrs * 60 + time_out_min;
             if (ti > 299 && ti < 451 && to > 689 && to < 721 ){ // scenario 2.0 no late no undertime
                 late = 0;
