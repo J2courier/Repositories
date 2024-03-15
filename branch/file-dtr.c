@@ -40,6 +40,15 @@ void gotoxy(int x, int y){
     coord.Y = y - 1;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);//please memorized kay mawasak aton structure
 }
+void reset(){
+    weekly_salary = 0.0, total_work_hours = 0.0;
+    ti = 0, to = 0, weeklySalary = 0, total_late = 0; 
+    total_undertime = 0, salary_per_hrs = 100, unfloat_hrs_work;
+    hrs_work = 0, totalWorkhours = 0.0, total_weekly_salary = 0.0;
+    late = 0, undertime = 0, total_hrs_work = 0, final_hrs_work = 0;
+    employee += 1;
+}
+
 void display_total(){/*diri nga function I call out tani sya sa sulod sang time in if mag set na
 and day sa value nga six means tapos na ang 5 days, and need tana e display ang total hours work lates,
 undertime, sang employee and maga reset ina sa later on*/
@@ -132,7 +141,7 @@ void timeIn_timeOut(){
         g(2, 7);printf("                 ");
         ti = time_in_hrs * 60 + time_in_min;
         if (time_in_hrs > 4 && time_in_hrs < 13 && time_in_min > -1 && time_in_min < 60){
-            if (ti > 570 && ti < 721){
+            if (ti > 570 && ti < 721){// scenario 1.0 if employee time in 9:31 and above which means ABSENT
                 if (day < 6){
                     late = 0;
                     undertime = 0;
@@ -249,7 +258,7 @@ void timeIn_timeOut(){
                     goto time_in_again;
                 }
             }
-            if (ti > 299 && ti < 451 && to > 539 && to < 721){ //scenario 2.1 no late with udertime
+            if (ti > 299 && ti < 451 && to > 569 && to < 721){ //scenario 2.1 no late with udertime
                 late = 0; 
                 undertime = 690 - to;
                 undertime_in_hrs = undertime / 60;
@@ -363,7 +372,7 @@ void timeIn_timeOut(){
                     goto time_in_again;
                 }
             }
-            if (ti > 299 && ti < 571 && to > 539 && to < 721){ //scenario 3.1 late with udertime
+            if (ti > 299 && ti < 571 && to > 569 && to < 721){ //scenario 3.1 late with udertime
                 late = ti - 450; //240 is 4 hours
                 undertime = 690 - to;
                 undertime_in_hrs = undertime / 60;
@@ -418,7 +427,7 @@ void timeIn_timeOut(){
                     }
                     goto time_in_again;
                 }
-            } else {
+            } else {//this is for invalid ma time in time out sa liwat
                 g(26, 5);printf("  ");
                 g(29, 5);printf("       ");
                 g(26, 6);printf("  ");
@@ -426,7 +435,7 @@ void timeIn_timeOut(){
                 g(2, 7);printf("INVALID INPUT");
                 goto time_in_again;
             }
-        } else {
+        } else {//in case mag invalid sa sentinel nga condition ma time in sya liwat as well as time out
             g(26, 5);printf("  ");
             g(29, 5);printf("       ");
             g(26, 6);printf("  ");
@@ -436,22 +445,19 @@ void timeIn_timeOut(){
         }
     }
 }
-int main(){
-    system("cls");
+
+int main(){//amo ni aton main function means tanan nga function included diri is maga run, ang iban hindi mag run okay?
+    system("cls");//clear screen ta anay
     do {
-        display_description();
-        timeIn_timeOut();   
-        display_total();
+        display_description();//ofcourse ang function dapat in order man ang pag construct pati ang logic sa sulod sang functions
+        timeIn_timeOut();   //diri ang focus sang aton program ang pag kuha sang time in and time out sang employee
+        display_total();//so after na sang day 5 nya nga input ma run ang function nga display total
         another_employee:
         //reset ta ang mga value kagina
-        weekly_salary = 0.0, total_work_hours = 0.0;
-        ti = 0, to = 0, weeklySalary = 0, total_late = 0; 
-        total_undertime = 0, salary_per_hrs = 100, unfloat_hrs_work;
-        hrs_work = 0, totalWorkhours = 0.0, total_weekly_salary = 0.0;
-        late = 0, undertime = 0, total_hrs_work = 0, final_hrs_work = 0;
-        employee += 1;
-        system("cls");
-    } while (ans == 'Y' || ans == 'y');
-    system("cls");//clrscr();
-    exit(0);
+        reset(); /*sa sulod sang total didto kita nag ask if another employee 
+        ones mag true ang condition didto e reset naton ang value*/
+        system("cls"); // since nyo employee naman ang ma input e clear naman naton ang screen
+    } while (ans == 'Y' || ans == 'y');//ones ang condition mag true meaning ma loop ang aton nga functions
+    system("cls");//clrscr(); if mag false naman directly ma kadto sa di clear nya anay ang screen then e terminate na ang program
+    exit(0);//by using the exit(0); 
 }
