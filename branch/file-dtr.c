@@ -40,32 +40,34 @@ void gotoxy(int x, int y){
     coord.Y = y - 1;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);//please memorized kay mawasak aton structure
 }
-void display_total(){
+void display_total(){/*diri nga function I call out tani sya sa sulod sang time in if mag set na
+and day sa value nga six means tapos na ang 5 days, and need tana e display ang total hours work lates,
+undertime, sang employee and maga reset ina sa later on*/
     g(13, 20);p("total:");
-    g(21, 20);p("%0.2d", total_hrs_work_hrs);
-    g(23, 20);p(":");
-    g(24, 20);p("%0.2d", total_hrs_work_min);
-    g(27, 20);p("total:");
+    g(21, 20);p("%0.2d", total_hrs_work_hrs);//display total hours work in hours form
+    g(23, 20);p(":");//colon serves as ga separate sa hours kag minutes
+    g(24, 20);p("%0.2d", total_hrs_work_min);//minutes form
+    g(27, 20);p("total:");//display total late in hours and minutes form
     g(35, 20);p("%0.2d", total_late_hrs);
     g(37, 20);p(":");
     g(38, 20);p("%0.2d", total_late_min);
-    g(43, 20);p("total:");
+    g(43, 20);p("total:");//display total undertime in hours and minutes form
     g(51, 20);p("%0.2d", total_undertime_hrs);
     g(53, 20);p(":");
     g(54, 20);p("%0.2d", total_undertime_min);
-    g(2, 21);p("Total HW: ");
+    g(2, 21);p("Total HW: ");//display total work hours
     g(14, 21);p("%0.2d", total_hrs_work_hrs);
     g(16, 21);p(":");
     g(17, 21);p("%0.2d", total_hrs_work_min);
-    g(2, 22);p("Total LATE: ");
+    g(2, 22);p("Total LATE: ");//display total late
     g(14, 22);p("%0.2d", total_late_hrs);
     g(16, 22);p(":");
     g(17, 22);p("%0.2d", total_late_min);
-    g(2, 23);p("Total UNDERTIME: ");
+    g(2, 23);p("Total UNDERTIME: ");//display total undertime
     g(19, 23);p("%0.2d", total_undertime_hrs);
     g(21, 23);p(":");
     g(22, 23);p("%0.2d", total_undertime_min);
-    g(23, 21);p("WEEKLY SALARIES: ");
+    g(23, 21);p("WEEKLY SALARIES: ");//display weekly salaries
     g(40, 21);p("%5.2f", total_weekly_salary);
     another_employee:
     g(27, 23);p("ANOTHER EMPLOYEE? ");
