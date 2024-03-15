@@ -69,22 +69,26 @@ void display_total(){
     g(40, 21);p("%5.2f", total_weekly_salary);
     another_employee:
     g(27, 23);p("ANOTHER EMPLOYEE? ");
-    g(45, 23);s("%c", &ans);
+    g(45, 23);s("%s", &ans);
     if (ans == 'n' || ans == 'n'){
         g(2, 24);p("ARE YOU SURE YOU WANT TO EXIT? (y/n) ");
         g(39, 24);s("%s", &ans);
         if (ans == 'Y' || ans == 'y'){
             system("cls");
             exit(0);
+        } else {
+            g(45, 23);p("      ");
+            g(2, 24);p("                                      ");
+            goto another_employee;
         }
-    }
-    g(45, 23);p("      ");
-    g(2, 24);p("                                      ");
-    goto another_employee;
+    } //after all the execution ma kadto na di para mag exit if naka abot sa di means nga ma another employee sya
+    //tas nag add nalang ta confirmation para sa another employee in case nga mag change iya mind
+    g(30, 24);p("CONFIRM?");
 }
-void display_description(){
+
+void display_description(){//e display naton ang description sini
     g(25, 8);p("EMPLOYEE:");
-    g(35, 8);p("%d", employee);
+    g(35, 8);p("%d", employee);//this line may value sya kay interchangeable ina kay ga increment aton nga employee kung mag another employee kita
     g(25, 9);p("PAYROLL FOR THE WEEK");
     g(25, 10);p("DAILY TIME RECORD");
     g(2, 13);p("days");
@@ -99,21 +103,27 @@ void timeIn_timeOut(){
     loop:
     for (day = 1; day < 6; day ++){
         time_in_again:
-        g(2, 5);printf("Time in: \n");
-        g(15, 5);printf(":");
-        g(2, 6);printf("Time out:\n");
-        g(15, 6);printf(":");
-        g(13, 5);scanf("%d", &time_in_hrs);
+        g(3, 5);printf("HOURS IN");
+        g(11, 5);printf(":");
+        g(13, 5);printf("MINUTES IN");
+        g(28, 5);printf(":");
+        g(2, 6);printf("HOURS OUT");
+        g(11, 6);printf(":");
+        g(13, 6);printf("MINUTES OUT");
+        g(28, 6);printf(":");
+        g(26, 5);scanf("%d", &time_in_hrs);
+        g(2, 7);printf("                       ");
         //a task here!!
         if (time_in_hrs < 5 || time_in_hrs > 12){//so nag add ko sang condition nga sa time in hour palang gina limit nya na ang invalid
-            g(13, 5);printf("  ");
+            g(26, 5);printf("  ");
             g(2, 7);printf("INVALID INPUT");
             goto time_in_again;
         }
-        g(16, 5);scanf("%d", &time_in_min);
+        g(29, 5);scanf("%d", &time_in_min);
+        g(2, 7);printf("                       ");
         if (time_in_min < 0 || time_in_min > 59){//same here gina limit nya ang invalid sa time in minutes
-            g(13, 5);printf("  ");
-            g(16, 5);printf("  ");
+            g(26, 5);printf("  ");
+            g(29, 5);printf("       ");
             g(2, 7);printf("INVALID INPUT");
             goto time_in_again;
         }
@@ -148,10 +158,10 @@ void timeIn_timeOut(){
                     g(41, 13 + day);p("4:0");
                     g(50, 13);p("UNDERTIME");
                     g(51, 13 + day);p("0:0");
-                    g(13, 5);printf("  ");
-                    g(16, 5);printf("  ");
-                    g(13, 6);printf("  ");
-                    g(16, 6);printf("  ");
+                    g(26, 5);printf("  ");
+                    g(29, 5);printf("       ");
+                    g(26, 6);printf("  ");
+                    g(29, 6);printf("       ");
                     g(2, 13+day); p("DAY %d", day);
                     day++;
                     if (day == 6){
@@ -162,17 +172,19 @@ void timeIn_timeOut(){
                 } 
             }
             time_out_again:
-            g(13, 6);scanf("%d", &time_out_hrs);
+            g(26, 6);scanf("%d", &time_out_hrs);
+            g(2, 7);printf("                       ");
             //a task here!!
             if (time_out_hrs < 5 || time_out_hrs > 12){//so nag add ko sang condition nga sa time in hour palang gina limit nya na ang invalid
-                g(13, 5);printf("  ");
+                g(26, 6);printf("  ");
                 g(2, 7);printf("INVALID INPUT");
                 goto time_out_again;
             }
-            g(16, 6);scanf("%d", &time_out_min);
+            g(29, 6);scanf("%d", &time_out_min);
+            g(2, 7);printf("                       ");
             if (time_in_min < 0 || time_in_min > 59){//same here gina limit nya ang invalid sa time in minutes
-                g(13, 5);printf("  ");
-                g(16, 5);printf("  ");
+                g(26, 6);printf("  ");
+                g(29, 6);printf("       ");
                 g(2, 7);printf("INVALID INPUT");
                 goto time_out_again;
             }
@@ -222,10 +234,10 @@ void timeIn_timeOut(){
                     g(51, 13 + day);p("%d", undertime_in_hrs);
                     g(52, 13 + day);p(":");
                     g(53, 13 + day);p("%d", undertime_in_min);
-                    g(13, 5);printf("  ");
-                    g(16, 5);printf("  ");
-                    g(13, 6);printf("  ");
-                    g(16, 6);printf("  ");
+                    g(26, 5);printf("  ");
+                    g(29, 5);printf("       ");
+                    g(26, 6);printf("  ");
+                    g(29, 6);printf("       ");
                     g(2, 13 + day); p("DAY %d", day);
                     day ++;
                     if (day == 6){
@@ -279,10 +291,10 @@ void timeIn_timeOut(){
                     g(51, 13 + day);p("%d", undertime_in_hrs);
                     g(52, 13 + day);p(":");
                     g(53, 13 + day);p("%d", undertime_in_min);
-                    g(13, 5);printf("  ");
-                    g(16, 5);printf("  ");
-                    g(13, 6);printf("  ");
-                    g(16, 6);printf("  ");
+                    g(26, 5);printf("  ");
+                    g(29, 5);printf("       ");
+                    g(26, 6);printf("  ");
+                    g(29, 6);printf("       ");
                     g(2, 13 + day); p("DAY %d", day);
                     day ++;
                     if (day == 6){
@@ -336,10 +348,10 @@ void timeIn_timeOut(){
                     g(51, 13 + day);p("%d", undertime_in_hrs);
                     g(52, 13 + day);p(":");
                     g(53, 13 + day);p("%d", undertime_in_min);
-                    g(13, 5);printf("  ");
-                    g(16, 5);printf("  ");
-                    g(13, 6);printf("  ");
-                    g(16, 6);printf("  ");
+                    g(26, 5);printf("  ");
+                    g(29, 5);printf("       ");
+                    g(26, 6);printf("  ");
+                    g(29, 6);printf("       ");
                     g(2, 13 + day); p("DAY %d", day);
                     day ++;
                     if (day == 6){
@@ -392,10 +404,10 @@ void timeIn_timeOut(){
                     g(51, 13 + day);p("%d", undertime_in_hrs);
                     g(52, 13 + day);p(":");
                     g(53, 13 + day);p("%d", undertime_in_min);
-                    g(13, 5);printf("  ");
-                    g(16, 5);printf("  ");
-                    g(13, 6);printf("  ");
-                    g(16, 6);printf("  ");
+                    g(26, 5);printf("  ");
+                    g(29, 5);printf("       ");
+                    g(26, 6);printf("  ");
+                    g(29, 6);printf("       ");
                     g(2, 13 + day); p("DAY %d", day);
                     day ++;
                     if (day == 6){
@@ -405,20 +417,18 @@ void timeIn_timeOut(){
                     goto time_in_again;
                 }
             } else {
-                g(13, 5);printf("  ");
-                g(16, 5);printf("  ");
-                g(13, 6);printf("  ");
-                g(16, 6);printf("  ");
-                g(13, 5);printf("  ");
+                g(26, 5);printf("  ");
+                g(29, 5);printf("       ");
+                g(26, 6);printf("  ");
+                g(29, 6);printf("       ");
                 g(2, 7);printf("INVALID INPUT");
                 goto time_in_again;
             }
         } else {
-            g(13, 5);printf("  ");
-            g(16, 5);printf("  ");
-            g(13, 6);printf("  ");
-            g(16, 6);printf("  ");
-            g(13, 5);printf("  ");
+            g(26, 5);printf("  ");
+            g(29, 5);printf("       ");
+            g(26, 6);printf("  ");
+            g(29, 6);printf("       ");
             g(2, 7);printf("INVALID INPUT");
             goto time_in_again;
         }
