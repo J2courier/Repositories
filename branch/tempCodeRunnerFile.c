@@ -1,0 +1,1 @@
+total_work_hours = 0.0

@@ -1,4 +1,6 @@
 //e add ko lang diri mga comment each line for better understanding, the rest I docs ko or readme file.
+//! bug found: input straight absent after success inputs total hours work output 3:59 source of bug unfixed/unknown
+//? bug fixed LOL
 //kindly read each part and purpose of variables and conditions
 
 //diri nga ang ginatawag nga Header file or preproccessor directive:
@@ -46,6 +48,7 @@ void reset(){
     total_undertime = 0, salary_per_hrs = 100, unfloat_hrs_work;
     hrs_work = 0, totalWorkhours = 0.0, total_weekly_salary = 0.0;
     late = 0, undertime = 0, total_hrs_work = 0, final_hrs_work = 0;
+    total_hrs_work_hrs = 0, total_hrs_work_min = 0;
     employee += 1;
 }
 
@@ -79,6 +82,7 @@ undertime, sang employee and maga reset ina sa later on*/
     g(23, 21);p("WEEKLY SALARIES: ");//display weekly salaries
     g(40, 21);p("%5.2f", total_weekly_salary);
     another_employee:
+     g(45, 23);p("          ");
     g(27, 23);p("ANOTHER EMPLOYEE? ");
     g(45, 23);s("%s", &ans);
     if (ans == 'n' || ans == 'n'){
